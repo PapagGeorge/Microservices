@@ -2,7 +2,7 @@
 using Application.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositorues
+namespace Infrastructure.InfraRepositories
 {
     public class OrderRepository : IOrderRepository
     {

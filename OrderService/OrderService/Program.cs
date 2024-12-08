@@ -1,3 +1,6 @@
+using Application.Interfaces;
+using Infrastructure.InfraRepositories;
+using Infrastructure;
 
 namespace OrderService
 {
@@ -12,6 +15,12 @@ namespace OrderService
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
+
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            builder.Services.AddInfrastucture(configuration);
 
             var app = builder.Build();
 

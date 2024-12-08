@@ -1,8 +1,8 @@
 ﻿using Domain.Models;
 
-namespace Application
+namespace Application.Interfaces
 {
-    internal interface IOrderRepository
+    public interface IOrderRepository
     {
         Task<Order> CreateOrderAsync(Order order);
         // Read

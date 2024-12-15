@@ -16,7 +16,7 @@ namespace Domain.Models
         public DateTime OrderDate { get; set; }
 
         [JsonPropertyName("products")]
-        public List<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
+        public List<ProductQuantity> Products { get; set; }
 
         [JsonPropertyName("totalAmount")]
         public decimal TotalAmount { get; set; }
@@ -27,7 +27,6 @@ namespace Domain.Models
         [JsonPropertyName("shippingAddressId")]
         public Guid ShippingAddressId { get; set; }
 
-        public Address ShippingAddress { get; set; }
     }
 
     public enum OrderStatus

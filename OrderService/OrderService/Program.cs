@@ -1,5 +1,5 @@
 using Application.Interfaces;
-using Infrastructure.InfraRepositories;
+using Infrastructure.Repos;
 using Infrastructure;
 
 namespace OrderService

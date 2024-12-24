@@ -20,6 +20,11 @@ namespace Infrastructure
                 .WithOne(a => a.Customer)
                 .HasForeignKey(a => a.CustomerId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Address>()
+                .Property(a => a.CustomerId)
+                .IsRequired();
         }
+
     }
 }

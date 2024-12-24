@@ -16,7 +16,7 @@ namespace Infrastructure.Repos
         public async Task<IEnumerable<Customer>> GetCustomersAsync(int pageNumber, int pageSize)
         {
             return await _context.Set<Customer>()
-                .Include(c => c.Address)
+                .Include(c => c.Addresses)
                 .OrderBy(c => c.Name)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -26,7 +26,7 @@ namespace Infrastructure.Repos
         public async Task<Customer> GetCustomerByIdAsync(Guid id)
         {
             return await _context.Set<Customer>()
-                .Include(c => c.Address)
+                .Include(c => c.Addresses)
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 

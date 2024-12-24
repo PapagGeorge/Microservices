@@ -21,16 +21,14 @@ public class Customer
     [JsonPropertyName("mobilePhone")]
     public string MobilePhone { get; set; }
 
-    [JsonPropertyName("address")]
-    public Address Address { get; set; }
+    [JsonPropertyName("addresses")]
+    public IEnumerable<Address> Addresses { get; set; }
 
     [JsonPropertyName("status")]
     public CustomerStatus Status { get; set; }
 
     [JsonPropertyName("loyaltyPoints")]
     public decimal LoyaltyPoints { get; set; }
-
-    public IEnumerable<Address> Addresses { get; set; }
 }
 
 public enum CustomerStatus

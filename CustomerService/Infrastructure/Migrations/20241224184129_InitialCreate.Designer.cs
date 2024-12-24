@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(CustomerServiceDbContext))]
-    [Migration("20241224181424_InitialCreate")]
+    [Migration("20241224184129_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -46,9 +46,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasAnnotation("Relational:JsonPropertyName", "customerId");
 
-                    b.Property<Guid?>("CustomerId1")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("PostalCode")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -68,13 +65,9 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("CustomerId1")
-                        .IsUnique()
-                        .HasFilter("[CustomerId1] IS NOT NULL");
-
                     b.ToTable("Addresses");
 
-                    b.HasAnnotation("Relational:JsonPropertyName", "address");
+                    b.HasAnnotation("Relational:JsonPropertyName", "addresses");
                 });
 
             modelBuilder.Entity("Domain.Models.Customer", b =>
@@ -120,18 +113,11 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Customer", null)
-                        .WithOne("Address")
-                        .HasForeignKey("Domain.Models.Address", "CustomerId1");
-
                     b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Domain.Models.Customer", b =>
                 {
-                    b.Navigation("Address")
-                        .IsRequired();
-
                     b.Navigation("Addresses");
                 });
 #pragma warning restore 612, 618

@@ -15,7 +15,7 @@ namespace Domain.Models
         [JsonPropertyName("orderDate")]
         public DateTime OrderDate { get; set; }
 
-        [JsonPropertyName("product")]
+        [JsonPropertyName("products")]
         public List<ProductQuantity> Products { get; set; }
 
         [JsonPropertyName("totalAmount")]

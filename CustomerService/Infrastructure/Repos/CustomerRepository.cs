@@ -6,9 +6,9 @@ namespace Infrastructure.Repos
 {
     public class CustomerRepository : ICustomerRepository
     {
-        private readonly DbContext _context;
+        private readonly CustomerServiceDbContext _context;
 
-        public CustomerRepository(DbContext context)
+        public CustomerRepository(CustomerServiceDbContext context)
         {
             _context = context;
         }

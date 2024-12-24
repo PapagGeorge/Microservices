@@ -1,5 +1,3 @@
-using Application.Interfaces;
-using Infrastructure.Repos;
 using Infrastructure;
 using Application;
 

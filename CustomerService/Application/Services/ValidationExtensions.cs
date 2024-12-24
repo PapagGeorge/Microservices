@@ -2,9 +2,9 @@
 
 namespace Application.Services
 {
-    public static class ValidationExtensions
+    internal static class ValidationExtensions
     {
-        public static void Validate(this ValidateCustomerRequest request)
+        internal static void Validate(this ValidateCustomerRequest request)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request), "Request cannot be null.");

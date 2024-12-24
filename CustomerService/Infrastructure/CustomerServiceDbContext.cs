@@ -16,15 +16,10 @@ namespace Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Customer>()
-                .HasMany(o => o.Addresses)
-                .WithOne(p => p.Customer)
-                .HasForeignKey(p => p.CustomerId)
+                .HasMany(c => c.Addresses)
+                .WithOne(a => a.Customer)
+                .HasForeignKey(a => a.CustomerId)
                 .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<Address>()
-                .HasOne(p => p.Customer)
-                .WithMany(o => o.Addresses)
-                .HasForeignKey(p => p.CustomerId);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Application.Services
         {
             _customerRepository = customerRepository;
         }
-        public async Task<ValidateCustomerResponse> ValidateCustomer(ValidateCustomerRequest request)
+        public async Task<ValidateCustomerResponse> ValidateCustomerAsync(ValidateCustomerRequest request)
         {
             request.Validate();
 

@@ -4,6 +4,6 @@ namespace Application.Interfaces
 {
     public interface ICustomerService
     {
-        Task<ValidateCustomerResponse>ValidateCustomer(ValidateCustomerRequest request);
+        Task<ValidateCustomerResponse>ValidateCustomerAsync(ValidateCustomerRequest request);
     }
 }

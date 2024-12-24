@@ -9,6 +9,9 @@ public class Address
     [JsonPropertyName("id")]
     public Guid Id { get; set; }
 
+    [JsonPropertyName("customerId")]
+    public Guid CustomerId { get; set; }
+
     [JsonPropertyName("street")]
     public string Street { get; set; }
 
@@ -23,5 +26,7 @@ public class Address
 
     [JsonPropertyName("country")]
     public string Country { get; set; }
+
+    public Customer Customer { get; set; }
 
 }

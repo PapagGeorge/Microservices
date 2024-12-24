@@ -1,3 +1,5 @@
+using Infrastructure;
+
 namespace CustomerService
 {
     public class Program
@@ -7,6 +9,12 @@ namespace CustomerService
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .Build();
+
+            builder.Services.AddInfrastructure(configuration);
 
             builder.Services.AddControllers();
 

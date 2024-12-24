@@ -27,6 +27,8 @@ public class Customer
 
     [JsonPropertyName("loyaltyPoints")]
     public decimal LoyaltyPoints { get; set; }
+
+    public IEnumerable<Address> Addresses { get; set; }
 }
 
 public enum CustomerStatus

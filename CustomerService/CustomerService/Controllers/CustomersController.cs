@@ -4,6 +4,8 @@ using Domain.Types;
 
 namespace CustomerService.Controllers
 {
+    [ApiController]
+    [Route("api/[controller]")]
     public class CustomersController : ControllerBase
     {
         private readonly ICustomerService _customerService;

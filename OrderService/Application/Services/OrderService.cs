@@ -22,6 +22,7 @@ public class OrderService : IOrderService
         var validateCustomerRequest = new ValidateCustomerRequest();
         validateCustomerRequest.CustomerId = request.CustomerId;
         validateCustomerRequest.ShippingAddressId = request.ShippingAddressId;
+        validateCustomerRequest.MobilePhone = request.MobilePhone;
 
         var validationResponse = await _customerRepository.ValidateCustomerAsync(validateCustomerRequest);
 
@@ -47,7 +48,8 @@ public class OrderService : IOrderService
             Id = Guid.NewGuid(),
             ProductId = item.ProductId,
             OrderId = orderId,
-            Quantity = item.Quantity
+            Quantity = item.Quantity,
+            UnitPrice = item.UnitPrice
         }).ToList();
 
         order.TotalAmount = order.Products.Sum(p => p.Quantity * p.UnitPrice);

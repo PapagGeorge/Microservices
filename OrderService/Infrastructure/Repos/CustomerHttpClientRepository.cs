@@ -1,21 +1,29 @@
 using System.Net.Http.Json;
 using Application.Interfaces;
 using Domain.CustomerServiceTypes;
+using Microsoft.Extensions.Configuration;
 
 namespace Infrastructure.Repos;
 
 public class CustomerHttpClientRepository : ICustomerHttpClientRepository
 {
     private readonly HttpClient _httpClient;
+    private readonly IConfiguration _configuration;
 
-    public CustomerHttpClientRepository(IHttpClientFactory httpClientFactory)
+    public CustomerHttpClientRepository(IHttpClientFactory httpClientFactory, IConfiguration configuration)
     {
         _httpClient = httpClientFactory.CreateClient("CustomerService");
+        _configuration = configuration;
     }
     
     public async Task<ValidateCustomerResponse> ValidateCustomerAsync(ValidateCustomerRequest request)
     {
-        var requestUri = $"api/customers/validate?customerId={request.CustomerId}&mobilePhone={request.MobilePhone}&shippingAddressId={request.ShippingAddressId}";
+        var BaseUrl = _configuration.GetSection("ApiSettings:CustomerServiceBaseUrl").Value;
+
+        var requestUri = $"{BaseUrl}api/customers/validateCustomer" +
+            $"?customerId={request.CustomerId}" +
+            $"&mobilePhone={request.MobilePhone}" +
+            $"&shippingAddressId={request.ShippingAddressId}";
 
         try
         {

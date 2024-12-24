@@ -1,4 +1,5 @@
 using Infrastructure;
+using Application;
 
 namespace CustomerService
 {
@@ -15,6 +16,8 @@ namespace CustomerService
                 .Build();
 
             builder.Services.AddInfrastructure(configuration);
+
+            builder.Services.AddServices();
 
             builder.Services.AddControllers();
 

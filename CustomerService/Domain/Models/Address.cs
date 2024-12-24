@@ -1,8 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace Domain.Models;
 
+[DataContract]
 public class Address
 {
     [Key]

@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Application.Interfaces;
+using Infrastructure.Repos;
 
 
 namespace Infrastructure
@@ -11,6 +13,7 @@ namespace Infrastructure
         {
             var connectionString = configuration.GetConnectionString("MsSql");
             services.AddDbContext<CustomerServiceDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
 
             return services;
         }

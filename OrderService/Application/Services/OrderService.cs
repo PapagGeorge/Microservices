@@ -52,7 +52,7 @@ public class OrderService : IOrderService
             UnitPrice = item.UnitPrice
         }).ToList();
 
-        order.TotalAmount = order.Products.Sum(p => p.Quantity * p.UnitPrice);
+        order.TotalAmount = Math.Round(order.Products.Sum(p => p.Quantity * p.UnitPrice), 2, MidpointRounding.AwayFromZero);
 
         // Step 4: Save order and associated products to database
         await _orderRepository.CreateOrderAsync(order);

@@ -16,7 +16,14 @@ namespace Infrastructure.Repos
         public async Task<Order> CreateOrderAsync(Order order)
         {
             _context.Orders.Add(order);
+
+            foreach (var product in order.Products)
+            {
+                product.OrderId = order.Id;
+            }
+
             await _context.SaveChangesAsync();
+
             return order;
         }
 

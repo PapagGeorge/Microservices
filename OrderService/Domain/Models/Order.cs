@@ -26,7 +26,6 @@ namespace Domain.Models
 
         [JsonPropertyName("shippingAddressId")]
         public Guid ShippingAddressId { get; set; }
-
     }
 
     public enum OrderStatus

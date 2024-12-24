@@ -13,6 +13,8 @@ namespace Infrastructure
             var connectionString = configuration.GetConnectionString("MsSql");
             services.AddDbContext<OrderServiceDbContext>(options => options.UseSqlServer(connectionString));
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<ICustomerHttpClientRepository, CustomerHttpClientRepository>();
+            services.AddHttpClient();
             return services;
         }
     }

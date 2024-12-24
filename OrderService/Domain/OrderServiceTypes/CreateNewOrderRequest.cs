@@ -10,4 +10,7 @@ public class CreateNewOrderRequest
 
     [JsonPropertyName("shippingAddressId")]
     public Guid ShippingAddressId { get; set; }
+
+    [JsonPropertyName("mobilePhone")]
+    public string MobilePhone { get; set; }
 }

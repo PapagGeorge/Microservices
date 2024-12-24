@@ -1,4 +1,5 @@
 using Application.Interfaces;
+using Application.Services;
 using Domain.CustomerServiceTypes;
 using Domain.Models;
 
@@ -15,51 +16,51 @@ public class OrderService : IOrderService
 
     public async Task<CreateNewOrderResponse> CreateNewOrderAsync(CreateNewOrderRequest request)
     {
+        request.Validate();
+
         // Step 1: Validate customer
-        var validationResponse = await _customerRepository.ValidateCustomerAsync(new ValidateCustomerRequest
-        {
-            CustomerId = request.CustomerId,
-            ShippingAddressId = request.ShippingAddressId
-        });
+        var validateCustomerRequest = new ValidateCustomerRequest();
+        validateCustomerRequest.CustomerId = request.CustomerId;
+        validateCustomerRequest.ShippingAddressId = request.ShippingAddressId;
+
+        var validationResponse = await _customerRepository.ValidateCustomerAsync(validateCustomerRequest);
 
         if (!validationResponse.IsValid)
         {
-            return new CreateNewOrderResponse
-            {
-                IsSuccess = false,
-                Message = validationResponse.ValidationMessage
-            };
+            var newOrderFailedCustomerValidationResponse = new CreateNewOrderResponse();
+            newOrderFailedCustomerValidationResponse.IsSuccess = false;
+            newOrderFailedCustomerValidationResponse.Message = validationResponse.ValidationMessage;
+
+            return newOrderFailedCustomerValidationResponse;
         }
 
         // Step 2: Map request to domain models
-        var order = new Order
+        var order = new Order();
+        var orderId = Guid.NewGuid();
+        order.Id = orderId;
+        order.CustomerId = request.CustomerId;
+        order.OrderDate = DateTime.UtcNow;
+        order.Status = OrderStatus.Pending;
+        order.ShippingAddressId = request.ShippingAddressId;
+        order.Products = request.Items.Select(item => new ProductQuantity
         {
             Id = Guid.NewGuid(),
-            CustomerId = request.CustomerId,
-            OrderDate = DateTime.UtcNow,
-            TotalAmount = 0, // Calculated later
-            Status = OrderStatus.Pending,
-            ShippingAddressId = request.ShippingAddressId,
-            Products = request.Items.Select(item => new ProductQuantity
-            {
-                Id = Guid.NewGuid(),
-                ProductId = item.ProductId,
-                Quantity = item.Quantity
-            }).ToList()
-        };
+            ProductId = item.ProductId,
+            OrderId = orderId,
+            Quantity = item.Quantity
+        }).ToList();
 
-        // Step 3: Calculate total amount (mocked for simplicity)
-        order.TotalAmount = order.Products.Sum(p => p.Quantity * 10); // Assume each product costs 10 units
+        order.TotalAmount = order.Products.Sum(p => p.Quantity * p.UnitPrice);
 
         // Step 4: Save order and associated products to database
         await _orderRepository.CreateOrderAsync(order);
 
-        return new CreateNewOrderResponse
-        {
-            IsSuccess = true,
-            Message = "Order created successfully.",
-            OrderId = order.Id,
-            Status = order.Status
-        };
+        var response = new CreateNewOrderResponse();
+        response.IsSuccess = true;
+        response.Message = "Order created successfully.";
+        response.OrderId = order.Id;
+        response.Status = order.Status;
+        return response;
+
     }
 }

@@ -15,7 +15,7 @@ public class CustomerHttpClientRepository : ICustomerHttpClientRepository
     
     public async Task<ValidateCustomerResponse> ValidateCustomerAsync(ValidateCustomerRequest request)
     {
-        var requestUri = $"api/customers/validate?customerId={request.CustomerId}&shippingAddressId={request.ShippingAddressId}";
+        var requestUri = $"api/customers/validate?customerId={request.CustomerId}&mobilePhone={request.MobilePhone}&shippingAddressId={request.ShippingAddressId}";
 
         try
         {
